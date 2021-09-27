@@ -3,6 +3,7 @@ import org.apache.tools.ant.DirectoryScanner
 
 plugins {
     id 'java-library'
+    id 'application'
 }
 
 group 'edu.depaul'
@@ -29,7 +30,7 @@ dependencies {
 }
 
 //TODO: change to your userid
-def user = 'DWALKE30'
+def user = 'NSANTIA6'
 
 task packageDistribution(type: Zip) {
     doFirst{
