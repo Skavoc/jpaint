@@ -62,3 +62,10 @@ check {
     finalizedBy packageDistribution
 }
 
+ext {
+    javaMainClass = "main.main"
+}
+
+application {
+    mainClassName = javaMainClass
+}
