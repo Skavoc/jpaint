@@ -29,7 +29,6 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 }
 
-//TODO: change to your userid
 def user = 'NSANTIA6'
 
 task packageDistribution(type: Zip) {

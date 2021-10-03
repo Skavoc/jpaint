@@ -4,10 +4,12 @@ import controller.EventConnector;
 import controller.EventConnectorImpl;
 import controller.KeyboardInterface;
 import controller.MouseHandler;
+import controller.command.CommandController;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+import model.interfaces.UserChoices;
 import model.persistence.UserChoicesImpl;
 import view.gui.Gui;
 import view.gui.GuiWindowImpl;
@@ -20,13 +22,13 @@ public class Main {
         PaintCanvas paintCanvas = new PaintCanvas();
         GuiWindow guiWindow = new GuiWindowImpl(paintCanvas);
         UiModule uiModule = new Gui(guiWindow);
-        UserChoicesImpl appState = new UserChoicesImpl(uiModule);
+        UserChoices appState = new UserChoicesImpl(uiModule);
         EventConnector controller = new EventConnectorImpl(uiModule, appState);
 
         KeyboardInterface keys = new KeyboardInterface(paintCanvas, appState);
         keys.setup();
-
-        MouseHandler mouse = new MouseHandler();
+        CommandController commandController = new CommandController(appState);
+        MouseHandler mouse = new MouseHandler(commandController);
         paintCanvas.addMouseListener(mouse);
         controller.setup();
 
