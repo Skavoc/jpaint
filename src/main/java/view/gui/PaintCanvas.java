@@ -24,7 +24,7 @@ public class PaintCanvas extends JComponent {
     @Override
     /**
      * This is an event handler.  If this function gets called, its time to
-     * draw the entire picture.
+     * draw the entire model.picture.
      * It you want to force a paint event, call aPaintCanvas.repaint()
      */
     public void paintComponent(Graphics graphics) {

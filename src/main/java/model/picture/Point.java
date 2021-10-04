@@ -1,4 +1,4 @@
-package picture;
+package model.picture;
 
 public class Point {
   private int x;

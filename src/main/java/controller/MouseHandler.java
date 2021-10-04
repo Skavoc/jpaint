@@ -4,9 +4,11 @@ import controller.command.CommandController;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import model.MouseMode;
+import model.interfaces.UserChoices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import picture.Point;
+import model.picture.Point;
 
 /**
  * MouseHandler is responsible for propagating mouse coordinates into our application
@@ -14,8 +16,10 @@ import picture.Point;
  */
 public class MouseHandler extends MouseAdapter {
   private CommandController commandController;
-  public MouseHandler(CommandController commandController){
+  private UserChoices userChoices;
+  public MouseHandler(CommandController commandController, UserChoices userChoices){
     this.commandController = commandController;
+    this.userChoices = userChoices;
   }
 
   private static final Logger log = LoggerFactory.getLogger(MouseHandler.class);
@@ -32,6 +36,8 @@ public class MouseHandler extends MouseAdapter {
   public void mouseReleased(MouseEvent e) {
     end = new Point(e.getX(), e.getY());
     log.debug("End " + e.getX() + " " + e.getY());
-    commandController.onDraw(start, end);
+    if(userChoices.getActiveMouseMode() == MouseMode.DRAW) {
+      commandController.onDraw(start, end);
+    }
   }
 }

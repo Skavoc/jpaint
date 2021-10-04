@@ -3,7 +3,7 @@ package controller.command;
 
 import controller.interfaces.Command;
 import model.interfaces.UserChoices;
-import picture.Point;
+import model.picture.Point;
 
 public class CommandController {
   private UserChoices userChoices;

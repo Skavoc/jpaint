@@ -27,8 +27,9 @@ public class Main {
 
         KeyboardInterface keys = new KeyboardInterface(paintCanvas, appState);
         keys.setup();
+
         CommandController commandController = new CommandController(appState);
-        MouseHandler mouse = new MouseHandler(commandController);
+        MouseHandler mouse = new MouseHandler(commandController, appState);
         paintCanvas.addMouseListener(mouse);
         controller.setup();
 
