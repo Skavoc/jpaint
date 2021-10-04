@@ -3,7 +3,9 @@ package model.picture;
 import java.awt.*;
 import model.interfaces.Drawable;
 import model.interfaces.UserChoices;
-
+/**
+ * Creates the rectangle shape based on the User's choices. paint() Creates the shape on the canvas.
+ */
 public class DrawRectangleShape implements Drawable {
   private Color primaryColor;
   private Color secondaryColor;

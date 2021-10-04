@@ -33,7 +33,7 @@ def user = 'NSANTIA6'
 
 task packageDistribution(type: Zip) {
     doFirst{
-        DirectoryScanner.removeDefaultExclude("**/.gitignore")
+        DirectoryScanner.removeDefaultExclude("/.gitignore")
     }
     dependsOn check
     archiveFileName = "${user}-${rootProject.name}.zip"
@@ -63,7 +63,7 @@ check {
 }
 
 ext {
-    javaMainClass = "main.main"
+    javaMainClass = "main.Main"
 }
 
 application {

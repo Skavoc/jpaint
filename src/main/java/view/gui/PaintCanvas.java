@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 public class PaintCanvas extends JComponent {
     private ArrayList<Drawable> painting;
     private Drawable shape;
-    public PaintCanvas(ArrayList painting){
+    public PaintCanvas(ArrayList<Drawable> painting){
         this.painting = painting;
     }
 
@@ -25,12 +25,13 @@ public class PaintCanvas extends JComponent {
         return (Graphics2D)getGraphics();
     }
 
-    @Override
+
     /**
      * This is an event handler.  If this function gets called, its time to
      * draw the entire model.picture.
-     * It you want to force a paint event, call aPaintCanvas.repaint()
+     * If you want to force a paint event, call aPaintCanvas.repaint()
      */
+    @Override
     public void paintComponent(Graphics graphics) {
       Graphics2D graphics2d = (Graphics2D) graphics;
       for (Drawable i : painting){
