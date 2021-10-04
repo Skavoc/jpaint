@@ -5,10 +5,8 @@ import controller.EventConnectorImpl;
 import controller.KeyboardInterface;
 import controller.MouseHandler;
 import controller.command.CommandController;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Stroke;
+import java.util.ArrayList;
+import model.interfaces.Drawable;
 import model.interfaces.UserChoices;
 import model.persistence.UserChoicesImpl;
 import view.gui.Gui;
@@ -19,7 +17,8 @@ import view.interfaces.UiModule;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        PaintCanvas paintCanvas = new PaintCanvas();
+        ArrayList<Drawable> painting = new ArrayList<Drawable>();
+        PaintCanvas paintCanvas = new PaintCanvas(painting);
         GuiWindow guiWindow = new GuiWindowImpl(paintCanvas);
         UiModule uiModule = new Gui(guiWindow);
         UserChoices appState = new UserChoicesImpl(uiModule);
@@ -28,31 +27,11 @@ public class Main {
         KeyboardInterface keys = new KeyboardInterface(paintCanvas, appState);
         keys.setup();
 
-        CommandController commandController = new CommandController(appState, paintCanvas);
+        CommandController commandController = new CommandController(appState, paintCanvas, painting);
         MouseHandler mouse = new MouseHandler(commandController, appState);
         paintCanvas.addMouseListener(mouse);
         controller.setup();
 
         Thread.sleep(500);
-
-        Graphics2D graphics2d = paintCanvas.getGraphics2D();
-
-        // - Begin example: remove after you understand it
-
-        //graphics2d.setColor(Color.GREEN);
-        //graphics2d.fillRect(12, 13, 200, 400);
-
-        // Outlined rectangle
-        //graphics2d.setStroke(new BasicStroke(5));
-        //graphics2d.setColor(Color.BLUE);
-        //graphics2d.drawRect(12, 13, 200, 400);
-
-        // Selected Shape
-        //Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
-        //graphics2d.setStroke(stroke);
-        //graphics2d.setColor(Color.BLACK);
-        //graphics2d.drawRect(7, 8, 210, 410);
-
-        // - End example
     }
 }
