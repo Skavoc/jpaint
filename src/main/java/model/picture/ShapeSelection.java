@@ -13,7 +13,9 @@ public class ShapeSelection {
       }
     }
   }
-
+  /**
+   * Creates a (for now) non-visible rectangle based off of the start and end point. This rectangle is used to check for intersection.
+   */
   public static Rectangle2D SelectionRectangle(Point Start, Point end) {
     int StartX= Math.min(Start.getX(), end.getX());
     int StartY = Math.min(Start.getY(), end.getY());

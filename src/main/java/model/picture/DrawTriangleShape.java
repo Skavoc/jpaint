@@ -56,12 +56,16 @@ public class DrawTriangleShape implements Drawable {
   public int getHeight() {
     return height;
   }
-
+  /**
+   * Keeping it simple since we are already using awt for shape creation. Awt already has an intersect feature. No need to recreate the wheel.
+   */
   @Override
   public boolean intersect(Rectangle2D Select) {
     return this.p.intersects(Select);
   }
-
+  /**
+   * Easy shifts. Works with negative or positive shifts
+   */
   @Override
   public void addX(int shift) {
     for(int i=0; i<3; i++)
