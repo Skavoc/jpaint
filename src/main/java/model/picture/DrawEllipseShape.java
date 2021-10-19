@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 import model.interfaces.Drawable;
 import model.interfaces.UserChoices;
 
@@ -14,6 +15,7 @@ public class DrawEllipseShape implements Drawable {
   private int Starty;
   private int width;
   private int height;
+  private Shape el;
 
   public DrawEllipseShape(UserChoices userChoices, Point start, Point end){
     this.primaryColor = userChoices.getActivePrimaryColor().value;
@@ -26,8 +28,8 @@ public class DrawEllipseShape implements Drawable {
   @Override
   public void paint(Graphics2D graphics2d) {
     graphics2d.setColor(primaryColor);
-    Shape el = new Ellipse2D.Double(Startx, Starty, width, height);
-    graphics2d.fill(el);
+    this.el = new Ellipse2D.Double(Startx, Starty, width, height);
+    graphics2d.fill(this.el);
   }
 
   @Override
@@ -38,5 +40,10 @@ public class DrawEllipseShape implements Drawable {
   @Override
   public int getHeight() {
     return height;
+  }
+
+  @Override
+  public boolean intersect(Rectangle2D Select) {
+    return this.el.intersects(Select);
   }
 }

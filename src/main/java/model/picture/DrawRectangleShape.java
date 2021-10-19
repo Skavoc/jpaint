@@ -1,6 +1,7 @@
 package model.picture;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import model.interfaces.Drawable;
 import model.interfaces.UserChoices;
 /**
@@ -13,6 +14,7 @@ public class DrawRectangleShape implements Drawable {
   private int Starty;
   private int width;
   private int height;
+  private Rectangle2D r;
 
   public DrawRectangleShape(UserChoices userChoices, Point start, Point end){
     this.primaryColor = userChoices.getActivePrimaryColor().value;
@@ -26,8 +28,8 @@ public class DrawRectangleShape implements Drawable {
   @Override
   public void paint(Graphics2D graphics2d) {
     graphics2d.setColor(primaryColor);
-    graphics2d.fillRect(Startx, Starty, width, height);
-
+    this.r =  new Rectangle2D.Double(Startx, Starty, width, height);
+    graphics2d.fill(r);
   }
 
   @Override
@@ -38,5 +40,10 @@ public class DrawRectangleShape implements Drawable {
   @Override
   public int getHeight() {
     return height;
+  }
+
+  @Override
+  public boolean intersect(Rectangle2D Select) {
+    return this.r.intersects(Select);
   }
 }

@@ -24,7 +24,14 @@ public class CommandController {
   public void onDraw(Point start, Point end){
     Command command = new CreateShapeCommand(userChoices, paintCanvas, painting, start, end);
     command.run();
-
+  }
+  public void onSelect(Point start, Point end){
+    Command command = new SelectShapesCommand(painting, start, end);
+    command.run();
+  }
+  public void onMove(Point start, Point end){
+    Command command = new MoveShapesCommand(painting, start, end);
+    command.run();
   }
 
 }
