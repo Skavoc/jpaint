@@ -12,5 +12,7 @@ public interface Drawable {
   int getWidth();
   int getHeight();
   boolean intersect(Rectangle2D Select);
+  void addX(int shift);
+  void addY(int shift);
 
 }

@@ -17,7 +17,8 @@ import view.interfaces.UiModule;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        ArrayList<Drawable> painting = new ArrayList<Drawable>();
+        ArrayList<Drawable> painting = new ArrayList<>();
+        ArrayList<Drawable> selection = new ArrayList<>();
         PaintCanvas paintCanvas = new PaintCanvas(painting);
         GuiWindow guiWindow = new GuiWindowImpl(paintCanvas);
         UiModule uiModule = new Gui(guiWindow);
@@ -27,7 +28,7 @@ public class Main {
         KeyboardInterface keys = new KeyboardInterface(paintCanvas, appState);
         keys.setup();
 
-        CommandController commandController = new CommandController(appState, paintCanvas, painting);
+        CommandController commandController = new CommandController(appState, paintCanvas, painting, selection);
         MouseHandler mouse = new MouseHandler(commandController, appState);
         paintCanvas.addMouseListener(mouse);
         controller.setup();

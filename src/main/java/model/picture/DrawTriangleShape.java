@@ -62,4 +62,16 @@ public class DrawTriangleShape implements Drawable {
     return this.p.intersects(Select);
   }
 
+  @Override
+  public void addX(int shift) {
+    for(int i=0; i<3; i++)
+      this.x[i] += shift;
+  }
+
+  @Override
+  public void addY(int shift) {
+    for(int i=0; i<3; i++)
+      this.y[i] += shift;
+  }
+
 }

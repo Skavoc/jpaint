@@ -46,4 +46,15 @@ public class DrawRectangleShape implements Drawable {
   public boolean intersect(Rectangle2D Select) {
     return this.r.intersects(Select);
   }
+
+  @Override
+  public void addX(int shift) {
+    this.Startx += shift;
+  }
+
+  @Override
+  public void addY(int shift) {
+    this.Starty += shift;
+
+  }
 }

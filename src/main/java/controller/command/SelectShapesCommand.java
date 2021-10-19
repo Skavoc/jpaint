@@ -17,15 +17,17 @@ public class SelectShapesCommand implements Command, Undoable {
   private ArrayList<Drawable> selected;
 
 
-  public SelectShapesCommand(ArrayList<Drawable> painting, Point start, Point end) {
+  public SelectShapesCommand(ArrayList<Drawable> painting, ArrayList<Drawable> selected, Point start, Point end) {
     this.painting = painting;
     this.start = start;
     this.end = end;
+    this.selected = selected;
   }
 
   @Override
   public void run() {
-    this.selected = ShapeSelection.select(painting, start, end);
+    this.selected.clear();
+    ShapeSelection.select(painting, selected, start, end);
     CommandHistory.add(this);
   }
 
@@ -36,6 +38,6 @@ public class SelectShapesCommand implements Command, Undoable {
 
   @Override
   public void redo() {
-    ShapeSelection.select(painting, start, end);
+    ShapeSelection.select(painting, selected, start, end);
   }
 }

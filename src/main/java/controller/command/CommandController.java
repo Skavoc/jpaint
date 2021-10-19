@@ -15,22 +15,25 @@ public class CommandController {
   private UserChoices userChoices;
   private PaintCanvas paintCanvas;
   private ArrayList<Drawable> painting;
+  private ArrayList<Drawable> selection;
 
-  public CommandController(UserChoices userChoices, PaintCanvas paintCanvas, ArrayList<Drawable> painting){
+  public CommandController(UserChoices userChoices, PaintCanvas paintCanvas,
+      ArrayList<Drawable> painting, ArrayList<Drawable> selection){
     this.userChoices = userChoices;
     this.paintCanvas = paintCanvas;
     this.painting = painting;
+    this.selection = selection;
   }
   public void onDraw(Point start, Point end){
     Command command = new CreateShapeCommand(userChoices, paintCanvas, painting, start, end);
     command.run();
   }
   public void onSelect(Point start, Point end){
-    Command command = new SelectShapesCommand(painting, start, end);
+    Command command = new SelectShapesCommand(painting, selection, start, end);
     command.run();
   }
   public void onMove(Point start, Point end){
-    Command command = new MoveShapesCommand(painting, start, end);
+    Command command = new MoveShapesCommand(selection, paintCanvas, start, end);
     command.run();
   }
 
