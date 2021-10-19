@@ -13,6 +13,12 @@ public class ShapeCreator {
     if (userChoices.getActiveShapeType() == ShapeType.RECTANGLE){
       shape = new DrawRectangleShape(userChoices, start, end);
     }
+    if (userChoices.getActiveShapeType() == ShapeType.ELLIPSE){
+      shape = new DrawEllipseShape(userChoices, start, end);
+    }
+    if (userChoices.getActiveShapeType() == ShapeType.TRIANGLE){
+      shape = new DrawTriangleShape(userChoices, start, end);
+    }
     return shape;
   }
 
