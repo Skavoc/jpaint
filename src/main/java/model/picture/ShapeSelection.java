@@ -2,14 +2,16 @@ package model.picture;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import model.ListRepository.ListRepository;
 import model.interfaces.Drawable;
 
 public class ShapeSelection {
-  public static void select(ArrayList<Drawable> painting,ArrayList<Drawable> selection, Point Start, Point end) {
+  public static void select( Point Start, Point end) {
     Rectangle2D r = SelectionRectangle(Start, end);
-    for(Drawable i: painting){
+    ArrayList<Drawable> Canvas = ListRepository.CanvasCollection.getList();
+    for(Drawable i: Canvas){
       if (i.intersect(r)){
-        selection.add(i);
+        ListRepository.SelectedCollection.add(i);
       }
     }
   }

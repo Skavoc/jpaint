@@ -3,6 +3,7 @@ package controller.command;
 import controller.interfaces.Command;
 import controller.interfaces.Undoable;
 import java.util.ArrayList;
+import model.ListRepository.ListRepository;
 import model.interfaces.Drawable;
 import model.interfaces.UserChoices;
 import model.picture.Point;
@@ -18,14 +19,12 @@ public class CreateShapeCommand implements Command, Undoable {
   private Point start;
   private Point end;
   private Drawable shape;
-  private ArrayList<Drawable> painting;
 
 
 
-  public CreateShapeCommand(UserChoices userChoices, PaintCanvas paintCanvas, ArrayList<Drawable> painting, Point start, Point end){
+  public CreateShapeCommand(UserChoices userChoices, PaintCanvas paintCanvas, Point start, Point end){
     this.userChoices = userChoices;
     this.paintCanvas = paintCanvas;
-    this.painting = painting;
     this.start = start;
     this.end = end;
 
@@ -33,7 +32,7 @@ public class CreateShapeCommand implements Command, Undoable {
   @Override
   public void run() {
     shape = ShapeCreator.shapeCreate(userChoices, start, end);
-    painting.add(shape);
+    ListRepository.CanvasCollection.add(shape);
     paintCanvas.repaint();
     CommandHistory.add(this);
   }
@@ -43,7 +42,7 @@ public class CreateShapeCommand implements Command, Undoable {
    */
   @Override
   public void undo() {
-    painting.remove(shape);
+    ListRepository.CanvasCollection.remove(shape);
     paintCanvas.repaint();
   }
   /**
@@ -51,7 +50,7 @@ public class CreateShapeCommand implements Command, Undoable {
    */
   @Override
   public void redo() {
-    painting.add(shape);
+    ListRepository.CanvasCollection.add(shape);
     paintCanvas.repaint();
 
   }

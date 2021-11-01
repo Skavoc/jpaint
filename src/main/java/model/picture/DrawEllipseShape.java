@@ -5,21 +5,25 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import model.ShapeShadingType;
 import model.interfaces.Drawable;
 import model.interfaces.UserChoices;
 
 public class DrawEllipseShape implements Drawable {
   private Color primaryColor;
   private Color secondaryColor;
+  private ShapeShadingType ShadingType;
   private int Startx;
   private int Starty;
   private int width;
   private int height;
   private Shape el;
+  private Boolean Selected = false;
 
   public DrawEllipseShape(UserChoices userChoices, Point start, Point end){
     this.primaryColor = userChoices.getActivePrimaryColor().value;
     this.secondaryColor = userChoices.getActiveSecondaryColor().value;
+    this.ShadingType =  userChoices.getActiveShapeShadingType();
     this.Startx = Math.min(start.getX(), end.getX());
     this.Starty = Math.min(start.getY(), end.getY());
     this.width = Math.abs(start.getX()- end.getX());

@@ -3,6 +3,7 @@ package controller.command;
 import controller.interfaces.Command;
 import controller.interfaces.Undoable;
 import java.util.ArrayList;
+import model.ListRepository.ListRepository;
 import model.interfaces.Drawable;
 import model.picture.Point;
 import model.picture.ShapeSelection;
@@ -13,26 +14,23 @@ public class SelectShapesCommand implements Command, Undoable {
   private Point start;
   private Point end;
   private Drawable shape;
-  private ArrayList<Drawable> painting;
-  private ArrayList<Drawable> selected;
+
   private ArrayList<Drawable> PrevSelected = new ArrayList<>();
 
 
-  public SelectShapesCommand(ArrayList<Drawable> painting, ArrayList<Drawable> selected, Point start, Point end) {
-    this.painting = painting;
+  public SelectShapesCommand(Point start, Point end) {
     this.start = start;
     this.end = end;
-    this.selected = selected;
   }
   /**
    * Clears the list just incase there are any previous selections. Then adds the new selected shapes to a new list. Stores the prior selection, if any, in the event we need to go back to a prior shape selection.
    */
   @Override
   public void run() {
-    if(!selected.isEmpty())
-      PrevSelected.addAll(selected);
-    this.selected.clear();
-    ShapeSelection.select(painting, selected, start, end);
+    if(!ListRepository.SelectedCollection.isEmpty())
+      PrevSelected.addAll(ListRepository.SelectedCollection.getList());
+    ListRepository.SelectedCollection.clear();
+    ShapeSelection.select(start, end);
     CommandHistory.add(this);
   }
   /**
@@ -40,15 +38,16 @@ public class SelectShapesCommand implements Command, Undoable {
    */
   @Override
   public void undo() {
-    this.selected.clear();
+    ListRepository.SelectedCollection.clear();
     if(!PrevSelected.isEmpty())
-      selected.addAll(PrevSelected);
+      ListRepository.SelectedCollection.addAll(PrevSelected);
   }
   /**
-   * Reselect the shapes that were previously selected
+   * Reselect the shapes that were previously selected.
    */
   @Override
   public void redo() {
-    ShapeSelection.select(painting, selected, start, end);
+    ListRepository.SelectedCollection.clear();
+    ShapeSelection.select(start, end);
   }
 }
