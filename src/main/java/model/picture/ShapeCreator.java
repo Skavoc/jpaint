@@ -10,13 +10,14 @@ import model.interfaces.UserChoices;
 public class ShapeCreator {
   public static Drawable shapeCreate(UserChoices userChoices, Point start, Point end){
     Drawable shape = null;
-    if (userChoices.getActiveShapeType() == ShapeType.RECTANGLE){
+    ShapeType Type = userChoices.getActiveShapeType();
+    if (Type == ShapeType.RECTANGLE){
       shape = new DrawRectangleShape(userChoices, start, end);
     }
-    if (userChoices.getActiveShapeType() == ShapeType.ELLIPSE){
+    if (Type == ShapeType.ELLIPSE){
       shape = new DrawEllipseShape(userChoices, start, end);
     }
-    if (userChoices.getActiveShapeType() == ShapeType.TRIANGLE){
+    if (Type == ShapeType.TRIANGLE){
       shape = new DrawTriangleShape(userChoices, start, end);
     }
     return shape;

@@ -1,11 +1,14 @@
 package model.picture;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import model.ShapeShadingType;
+import model.ShapeType;
 import model.interfaces.Drawable;
 import model.interfaces.UserChoices;
 
@@ -31,9 +34,24 @@ public class DrawEllipseShape implements Drawable {
   }
   @Override
   public void paint(Graphics2D graphics2d) {
-    graphics2d.setColor(primaryColor);
     this.el = new Ellipse2D.Double(Startx, Starty, width, height);
-    graphics2d.fill(this.el);
+    Stroke outline = new BasicStroke(6f);
+    if (this.ShadingType == ShapeShadingType.OUTLINE){
+      graphics2d.setColor(primaryColor);
+      graphics2d.setStroke(outline);
+      graphics2d.draw(this.el);
+    }
+    if (this.ShadingType == ShapeShadingType.FILLED_IN){
+      graphics2d.setColor(primaryColor);
+      graphics2d.fill(this.el);
+    }
+    if (this.ShadingType == ShapeShadingType.OUTLINE_AND_FILLED_IN) {
+      graphics2d.setColor(secondaryColor);
+      graphics2d.setStroke(outline);
+      graphics2d.draw(this.el);
+      graphics2d.setColor(primaryColor);
+      graphics2d.fill(this.el);
+    }
   }
 
   @Override
@@ -63,5 +81,10 @@ public class DrawEllipseShape implements Drawable {
   @Override
   public void addY(int shift) {
     this.Starty += shift;
+  }
+
+  @Override
+  public void selected() {
+
   }
 }

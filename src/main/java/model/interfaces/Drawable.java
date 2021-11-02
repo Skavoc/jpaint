@@ -14,5 +14,6 @@ public interface Drawable {
   boolean intersect(Rectangle2D Select);
   void addX(int shift);
   void addY(int shift);
+  void selected();
 
 }

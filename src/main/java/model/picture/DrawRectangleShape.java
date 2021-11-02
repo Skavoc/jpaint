@@ -1,7 +1,10 @@
 package model.picture;
 
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import model.ShapeShadingType;
+import model.ShapeType;
 import model.interfaces.Drawable;
 import model.interfaces.UserChoices;
 /**
@@ -10,6 +13,7 @@ import model.interfaces.UserChoices;
 public class DrawRectangleShape implements Drawable {
   private Color primaryColor;
   private Color secondaryColor;
+  private ShapeShadingType ShadingType;
   private int Startx;
   private int Starty;
   private int width;
@@ -19,6 +23,7 @@ public class DrawRectangleShape implements Drawable {
   public DrawRectangleShape(UserChoices userChoices, Point start, Point end){
     this.primaryColor = userChoices.getActivePrimaryColor().value;
     this.secondaryColor = userChoices.getActiveSecondaryColor().value;
+    this.ShadingType = userChoices.getActiveShapeShadingType();
     this.Startx = Math.min(start.getX(), end.getX());
     this.Starty = Math.min(start.getY(), end.getY());
     this.width = Math.abs(start.getX()- end.getX());
@@ -27,9 +32,25 @@ public class DrawRectangleShape implements Drawable {
 
   @Override
   public void paint(Graphics2D graphics2d) {
-    graphics2d.setColor(primaryColor);
-    this.r =  new Rectangle2D.Double(Startx, Starty, width, height);
-    graphics2d.fill(r);
+    this.r = new Rectangle2D.Double(Startx, Starty, width, height);
+    Stroke outline = new BasicStroke(6f);
+    if (this.ShadingType == ShapeShadingType.OUTLINE){
+      graphics2d.setColor(primaryColor);
+      graphics2d.setStroke(outline);
+      graphics2d.draw(this.r);
+    }
+    if (this.ShadingType == ShapeShadingType.FILLED_IN){
+      graphics2d.setColor(primaryColor);
+      graphics2d.fill(this.r);
+    }
+    if (this.ShadingType == ShapeShadingType.OUTLINE_AND_FILLED_IN) {
+      graphics2d.setColor(secondaryColor);
+      graphics2d.setStroke(outline);
+      graphics2d.draw(this.r);
+      graphics2d.setColor(primaryColor);
+      graphics2d.fill(this.r);
+    }
+
   }
 
   @Override
@@ -59,6 +80,11 @@ public class DrawRectangleShape implements Drawable {
   @Override
   public void addY(int shift) {
     this.Starty += shift;
+
+  }
+
+  @Override
+  public void selected() {
 
   }
 }
