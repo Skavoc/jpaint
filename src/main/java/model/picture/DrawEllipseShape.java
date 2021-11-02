@@ -8,11 +8,15 @@ import java.awt.Stroke;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import model.ShapeShadingType;
-import model.ShapeType;
 import model.interfaces.Drawable;
+import model.interfaces.ShapeParameters;
 import model.interfaces.UserChoices;
 
 public class DrawEllipseShape implements Drawable {
+
+  private final Point Start;
+  private final Point End;
+  private final ShapeParameters settings;
   private Color primaryColor;
   private Color secondaryColor;
   private ShapeShadingType ShadingType;
@@ -22,11 +26,15 @@ public class DrawEllipseShape implements Drawable {
   private int height;
   private Shape el;
   private Boolean Selected = false;
+  private Graphics2D g;
 
-  public DrawEllipseShape(UserChoices userChoices, Point start, Point end){
-    this.primaryColor = userChoices.getActivePrimaryColor().value;
-    this.secondaryColor = userChoices.getActiveSecondaryColor().value;
-    this.ShadingType =  userChoices.getActiveShapeShadingType();
+  public DrawEllipseShape(ShapeParameters settings, Point start, Point end){
+    this.primaryColor = settings.getPrimaryColor();
+    this.secondaryColor = settings.getSecondaryColor();
+    this.ShadingType =  settings.getShadingType();
+    this.Start = start;
+    this.End = end;
+    this.settings = settings;
     this.Startx = Math.min(start.getX(), end.getX());
     this.Starty = Math.min(start.getY(), end.getY());
     this.width = Math.abs(start.getX()- end.getX());
@@ -34,23 +42,24 @@ public class DrawEllipseShape implements Drawable {
   }
   @Override
   public void paint(Graphics2D graphics2d) {
+    this.g = graphics2d;
     this.el = new Ellipse2D.Double(Startx, Starty, width, height);
     Stroke outline = new BasicStroke(6f);
     if (this.ShadingType == ShapeShadingType.OUTLINE){
-      graphics2d.setColor(primaryColor);
-      graphics2d.setStroke(outline);
-      graphics2d.draw(this.el);
+      g.setColor(primaryColor);
+      g.setStroke(outline);
+      g.draw(this.el);
     }
     if (this.ShadingType == ShapeShadingType.FILLED_IN){
-      graphics2d.setColor(primaryColor);
-      graphics2d.fill(this.el);
+      g.setColor(primaryColor);
+      g.fill(this.el);
     }
     if (this.ShadingType == ShapeShadingType.OUTLINE_AND_FILLED_IN) {
-      graphics2d.setColor(secondaryColor);
-      graphics2d.setStroke(outline);
-      graphics2d.draw(this.el);
-      graphics2d.setColor(primaryColor);
-      graphics2d.fill(this.el);
+      g.setColor(secondaryColor);
+      g.setStroke(outline);
+      g.draw(this.el);
+      g.setColor(primaryColor);
+      g.fill(this.el);
     }
   }
 
@@ -83,8 +92,23 @@ public class DrawEllipseShape implements Drawable {
     this.Starty += shift;
   }
 
+  /**
+   * run the selected method which draws an outline around the selected shape.
+   */
   @Override
   public void selected() {
-
+    Shape highlight = new Ellipse2D.Double(Startx-6, Starty-6, width+6, height+6);
+    Stroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
+    g.setColor(Color.black);
+    g.setStroke(dashed);
+    g.draw(highlight);
+  }
+  /**
+   * creates a new shape which is a direct copy of the current shape state.
+   */
+  @Override
+  public Drawable copy() {
+    Drawable copy = new DrawEllipseShape(this.settings, this.Start, this.End);
+    return copy;
   }
 }

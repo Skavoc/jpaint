@@ -14,9 +14,6 @@ import org.slf4j.LoggerFactory;
  * should be added here.
  */
 public class PaintCanvas extends JComponent {
-    /**public PaintCanvas(ArrayList<Drawable> painting){
-        this.painting = painting;
-    }**/
 
     private static final Logger log = LoggerFactory.getLogger(PaintCanvas.class);
 
@@ -33,10 +30,13 @@ public class PaintCanvas extends JComponent {
     @Override
     public void paintComponent(Graphics graphics) {
       ArrayList<Drawable> Canvas = ListRepository.CanvasCollection.getList();
-
+      ArrayList<Drawable> selected = ListRepository.SelectedCollection.getList();
       Graphics2D graphics2d = (Graphics2D) graphics;
       for (Drawable i : Canvas){
         i.paint(graphics2d);
+        if(selected.contains(i)){
+          i.selected();
+        }
       }
 
     }

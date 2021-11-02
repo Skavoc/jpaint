@@ -1,29 +1,36 @@
 package model.picture;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import model.ShapeShadingType;
-import model.ShapeType;
 import model.interfaces.Drawable;
+import model.interfaces.ShapeParameters;
 import model.interfaces.UserChoices;
 /**
  * Creates the rectangle shape based on the User's choices. paint() Creates the shape on the canvas.
  */
 public class DrawRectangleShape implements Drawable {
+
+  private Point Start;
+  private Point End;
   private Color primaryColor;
   private Color secondaryColor;
   private ShapeShadingType ShadingType;
+  private ShapeParameters settings;
   private int Startx;
   private int Starty;
   private int width;
   private int height;
   private Rectangle2D r;
+  private Graphics2D g;
 
-  public DrawRectangleShape(UserChoices userChoices, Point start, Point end){
-    this.primaryColor = userChoices.getActivePrimaryColor().value;
-    this.secondaryColor = userChoices.getActiveSecondaryColor().value;
-    this.ShadingType = userChoices.getActiveShapeShadingType();
+  public DrawRectangleShape(ShapeParameters settings, Point start, Point end){
+    this.primaryColor = settings.getPrimaryColor();
+    this.secondaryColor = settings.getSecondaryColor();
+    this.ShadingType = settings.getShadingType();
+    this.settings = settings;
+    this.Start = start;
+    this.End = end;
     this.Startx = Math.min(start.getX(), end.getX());
     this.Starty = Math.min(start.getY(), end.getY());
     this.width = Math.abs(start.getX()- end.getX());
@@ -32,23 +39,24 @@ public class DrawRectangleShape implements Drawable {
 
   @Override
   public void paint(Graphics2D graphics2d) {
+    g = graphics2d;
     this.r = new Rectangle2D.Double(Startx, Starty, width, height);
     Stroke outline = new BasicStroke(6f);
     if (this.ShadingType == ShapeShadingType.OUTLINE){
-      graphics2d.setColor(primaryColor);
-      graphics2d.setStroke(outline);
-      graphics2d.draw(this.r);
+      g.setColor(primaryColor);
+      g.setStroke(outline);
+      g.draw(this.r);
     }
     if (this.ShadingType == ShapeShadingType.FILLED_IN){
-      graphics2d.setColor(primaryColor);
-      graphics2d.fill(this.r);
+      g.setColor(primaryColor);
+      g.fill(this.r);
     }
     if (this.ShadingType == ShapeShadingType.OUTLINE_AND_FILLED_IN) {
-      graphics2d.setColor(secondaryColor);
-      graphics2d.setStroke(outline);
-      graphics2d.draw(this.r);
-      graphics2d.setColor(primaryColor);
-      graphics2d.fill(this.r);
+      g.setColor(secondaryColor);
+      g.setStroke(outline);
+      g.draw(this.r);
+      g.setColor(primaryColor);
+      g.fill(this.r);
     }
 
   }
@@ -82,9 +90,24 @@ public class DrawRectangleShape implements Drawable {
     this.Starty += shift;
 
   }
-
+  /**
+   * run the selected method which draws an outline around the selected shape.
+   */
   @Override
   public void selected() {
-
+    Rectangle2D highlight = new Rectangle2D.Double(Startx, Starty-4, width+8, height+8);
+    Stroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
+    g.setColor(Color.BLACK);
+    g.setStroke(dashed);
+    g.draw(highlight);
   }
+  /**
+   * creates a new shape which is a direct copy of the current shape state.
+   */
+  @Override
+  public Drawable copy() {
+    Drawable copy = new DrawRectangleShape(this.settings, this.Start, this.End);
+    return copy;
+  }
+
 }

@@ -22,12 +22,13 @@ public class Main {
         GuiWindow guiWindow = new GuiWindowImpl(paintCanvas);
         UiModule uiModule = new Gui(guiWindow);
         UserChoices appState = new UserChoicesImpl(uiModule);
-        EventConnector controller = new EventConnectorImpl(uiModule, appState);
+        CommandController commandController = new CommandController(appState, paintCanvas);
+        EventConnector controller = new EventConnectorImpl(uiModule, appState, commandController);
 
         KeyboardInterface keys = new KeyboardInterface(paintCanvas, appState);
         keys.setup();
 
-        CommandController commandController = new CommandController(appState, paintCanvas);
+
         MouseHandler mouse = new MouseHandler(commandController, appState);
         paintCanvas.addMouseListener(mouse);
         controller.setup();

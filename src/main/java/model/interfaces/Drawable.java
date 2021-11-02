@@ -15,5 +15,6 @@ public interface Drawable {
   void addX(int shift);
   void addY(int shift);
   void selected();
+  Drawable copy();
 
 }

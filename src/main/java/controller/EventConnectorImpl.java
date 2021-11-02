@@ -4,6 +4,7 @@ import controller.command.CommandController;
 import controller.command.CommandHistory;
 import model.interfaces.UserChoices;
 import view.EventName;
+import view.gui.PaintCanvas;
 import view.interfaces.UiModule;
 
 /**
@@ -12,8 +13,10 @@ import view.interfaces.UiModule;
 public class EventConnectorImpl implements EventConnector {
     private final UiModule uiModule;
     private final UserChoices userChoices;
+    private CommandController commandController;
 
-    public EventConnectorImpl(UiModule uiModule, UserChoices userChoices) {
+    public EventConnectorImpl(UiModule uiModule, UserChoices userChoices, CommandController commandController) {
+        this.commandController = commandController;
         this.uiModule = uiModule;
         this.userChoices = userChoices;
     }
@@ -29,6 +32,8 @@ public class EventConnectorImpl implements EventConnector {
         uiModule.addEvent(EventName.CHOOSE_SECONDARY_COLOR, () -> userChoices.setActiveSecondaryColor());
         uiModule.addEvent(EventName.CHOOSE_SHADING_TYPE, () -> userChoices.setActiveShadingType());
         uiModule.addEvent(EventName.CHOOSE_MOUSE_MODE, () -> userChoices.setActiveStartAndEndPointMode());
+        uiModule.addEvent(EventName.COPY, ()-> commandController.onCopy());
+        uiModule.addEvent(EventName.PASTE,()-> commandController.onPaste());
         uiModule.addEvent(EventName.UNDO, CommandHistory::undo);
         uiModule.addEvent(EventName.REDO, CommandHistory::redo);
 

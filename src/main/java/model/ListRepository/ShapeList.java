@@ -2,7 +2,9 @@ package model.ListRepository;
 
 import java.util.ArrayList;
 import model.interfaces.Drawable;
-
+/**
+ * Singleton list that creates one list and then modifies it when called on.
+ */
 public class ShapeList {
   private final ArrayList<Drawable> shapeList = new ArrayList<>();
 
@@ -36,6 +38,9 @@ public class ShapeList {
 
   public void addAll(ArrayList<Drawable> list) {
     shapeList.addAll(list);
+  }
+  public void removeAll(ArrayList<Drawable> list){
+    shapeList.removeAll(list);
   }
 
 }

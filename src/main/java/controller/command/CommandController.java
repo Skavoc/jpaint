@@ -9,8 +9,9 @@ import view.gui.PaintCanvas;
  * Controller Class that will hold and initialize future commands
  */
 public class CommandController {
+
   private UserChoices userChoices;
-  private PaintCanvas paintCanvas;
+  private final PaintCanvas paintCanvas;
 
   public CommandController(UserChoices userChoices, PaintCanvas paintCanvas){
     this.userChoices = userChoices;
@@ -24,10 +25,20 @@ public class CommandController {
   public void onSelect(Point start, Point end){
     Command command = new SelectShapesCommand(start, end);
     command.run();
+    paintCanvas.repaint();
   }
   public void onMove(Point start, Point end){
     Command command = new MoveShapesCommand(paintCanvas, start, end);
     command.run();
+  }
+  public void onCopy(){
+    Command command = new CopyShapesCommand();
+    command.run();
+  }
+  public void onPaste(){
+    Command command = new PasteShapesCommand(paintCanvas);
+    command.run();
+
   }
 
 }
