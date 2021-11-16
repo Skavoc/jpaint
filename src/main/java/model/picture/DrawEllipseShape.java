@@ -17,15 +17,15 @@ public class DrawEllipseShape implements Drawable {
   private final Point Start;
   private final Point End;
   private final ShapeParameters settings;
-  private Color primaryColor;
-  private Color secondaryColor;
-  private ShapeShadingType ShadingType;
+  private final Color primaryColor;
+  private final Color secondaryColor;
+  private final ShapeShadingType ShadingType;
   private int Startx;
   private int Starty;
-  private int width;
-  private int height;
+  private final int width;
+  private final int height;
   private Shape el;
-  private Boolean Selected = false;
+  private final Boolean Selected = false;
   private Graphics2D g;
 
   public DrawEllipseShape(ShapeParameters settings, Point start, Point end){

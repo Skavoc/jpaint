@@ -15,18 +15,18 @@ public class DrawTriangleShape implements Drawable {
   private int EndX;
   private int EndY;
   private int OppX;
-  private Color primaryColor;
-  private Color secondaryColor;
-  private ShapeShadingType ShadingType;
-  private Point Start;
-  private Point End;
-  private ShapeParameters settings;
+  private final Color primaryColor;
+  private final Color secondaryColor;
+  private final ShapeShadingType ShadingType;
+  private final Point Start;
+  private final Point End;
+  private final ShapeParameters settings;
   private int StartX;
   private int StartY;
-  private int width;
-  private int height;
-  private int[] x;
-  private int[] y;
+  private final int width;
+  private final int height;
+  private final int[] x;
+  private final int[] y;
   private Polygon p;
   private Graphics2D g;
 

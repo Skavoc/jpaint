@@ -15,8 +15,8 @@ import model.picture.Point;
  * classes. This is a boundary class so very little code should be added here.
  */
 public class MouseHandler extends MouseAdapter {
-  private CommandController commandController;
-  private UserChoices userChoices;
+  private final CommandController commandController;
+  private final UserChoices userChoices;
   public MouseHandler(CommandController commandController, UserChoices userChoices){
     this.commandController = commandController;
     this.userChoices = userChoices;

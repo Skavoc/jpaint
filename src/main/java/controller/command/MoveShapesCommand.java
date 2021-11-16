@@ -11,8 +11,8 @@ import view.gui.PaintCanvas;
 public class MoveShapesCommand implements Command, Undoable {
 
   private final PaintCanvas paintCanvas;
-  private Point Start;
-  private Point End;
+  private final Point Start;
+  private final Point End;
 
   public MoveShapesCommand(PaintCanvas paintCanvas, Point start, Point end) {
     this.paintCanvas = paintCanvas;

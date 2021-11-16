@@ -11,16 +11,16 @@ import model.interfaces.UserChoices;
  */
 public class DrawRectangleShape implements Drawable {
 
-  private Point Start;
-  private Point End;
-  private Color primaryColor;
-  private Color secondaryColor;
-  private ShapeShadingType ShadingType;
-  private ShapeParameters settings;
+  private final Point Start;
+  private final Point End;
+  private final Color primaryColor;
+  private final Color secondaryColor;
+  private final ShapeShadingType ShadingType;
+  private final ShapeParameters settings;
   private int Startx;
   private int Starty;
-  private int width;
-  private int height;
+  private final int width;
+  private final int height;
   private Rectangle2D r;
   private Graphics2D g;
 

@@ -13,7 +13,7 @@ import view.interfaces.UiModule;
 public class EventConnectorImpl implements EventConnector {
     private final UiModule uiModule;
     private final UserChoices userChoices;
-    private CommandController commandController;
+    private final CommandController commandController;
 
     public EventConnectorImpl(UiModule uiModule, UserChoices userChoices, CommandController commandController) {
         this.commandController = commandController;

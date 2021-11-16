@@ -11,11 +11,11 @@ import view.gui.PaintCanvas;
 
 public class SelectShapesCommand implements Command, Undoable {
   private PaintCanvas paintCanvas;
-  private Point start;
-  private Point end;
+  private final Point start;
+  private final Point end;
   private Drawable shape;
 
-  private ArrayList<Drawable> PrevSelected = new ArrayList<>();
+  private final ArrayList<Drawable> PrevSelected = new ArrayList<>();
 
 
   public SelectShapesCommand(Point start, Point end) {

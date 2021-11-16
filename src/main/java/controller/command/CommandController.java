@@ -10,7 +10,7 @@ import view.gui.PaintCanvas;
  */
 public class CommandController {
 
-  private UserChoices userChoices;
+  private final UserChoices userChoices;
   private final PaintCanvas paintCanvas;
 
   public CommandController(UserChoices userChoices, PaintCanvas paintCanvas){

@@ -14,10 +14,10 @@ import view.gui.PaintCanvas;
  */
 public class CreateShapeCommand implements Command, Undoable {
 
-  private UserChoices userChoices;
-  private PaintCanvas paintCanvas;
-  private Point start;
-  private Point end;
+  private final UserChoices userChoices;
+  private final PaintCanvas paintCanvas;
+  private final Point start;
+  private final Point end;
   private Drawable shape;
 
 

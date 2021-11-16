@@ -18,7 +18,7 @@ public enum ShapeColor {
     YELLOW(Color.YELLOW);
 
     public final Color value;
-    private ShapeColor(Color c){
+    ShapeColor(Color c){
         this.value = c;
     }
 }

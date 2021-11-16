@@ -9,9 +9,9 @@ import model.picture.Point;
 import view.gui.PaintCanvas;
 
 public class PasteShapesCommand implements Command, Undoable {
-  private ArrayList<Drawable> Copied = ListRepository.CopiedShapeCollection.getList();
-  private ArrayList<Drawable> temp = new ArrayList<>();
-  private PaintCanvas paintCanvas;
+  private final ArrayList<Drawable> Copied = ListRepository.CopiedShapeCollection.getList();
+  private final ArrayList<Drawable> temp = new ArrayList<>();
+  private final PaintCanvas paintCanvas;
 
   public PasteShapesCommand(PaintCanvas paintCanvas) {
     this.paintCanvas = paintCanvas;
