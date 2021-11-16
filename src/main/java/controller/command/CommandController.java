@@ -38,7 +38,10 @@ public class CommandController {
   public void onPaste(){
     Command command = new PasteShapesCommand(paintCanvas);
     command.run();
-
+  }
+  public void onDelete(){
+    Command command = new DeleteShapesCommand(paintCanvas);
+    command.run();
   }
 
 }
